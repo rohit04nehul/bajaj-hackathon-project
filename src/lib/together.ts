@@ -1,8 +1,11 @@
 import Together from 'together-ai';
 
-// Always use the provided API key directly
-const apiKey = 'a292a1df015e7c16357e8c36937fa671bd7148b0d66a14bb9e060e846dca9130';
-const together = new Together({ apiKey });
+// Get API key from environment variables
+const apiKey = import.meta.env.VITE_TOGETHER_API_KEY;
+if (!apiKey) {
+  console.error('Missing VITE_TOGETHER_API_KEY environment variable');
+}
+const together = new Together({ apiKey: apiKey as string });
 
 export async function generateEmbedding(text: string): Promise<number[]> {
   try {
